@@ -1,0 +1,77 @@
+/* Vocaliz — feuille de style commune aux pages légales.
+   Volontairement sans dépendance externe (pas de Google Fonts, pas de CDN) :
+   ces pages ne doivent transmettre l'IP du visiteur à aucun tiers. */
+:root{
+  --bg:#ffffff;
+  --ink:#0e1c15;
+  --green-light:#2d6a4f;
+  --green-dark:#1b4332;
+  --txt:rgba(14,28,21,.84);
+  --txt-soft:rgba(14,28,21,.66);
+  --border:rgba(14,28,21,.1);
+  --glass:#cfe6da;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{
+  background:var(--bg);
+  color:var(--txt);
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Inter,Helvetica,Arial,sans-serif;
+  line-height:1.7;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:820px;margin:0 auto;padding:0 24px}
+
+header.legal-header{
+  border-bottom:1px solid var(--border);
+  padding:18px 0;
+  position:sticky;top:0;
+  background:rgba(255,255,255,.88);
+  backdrop-filter:blur(12px);
+  z-index:10;
+}
+header.legal-header .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.brand{font-weight:800;letter-spacing:.14em;font-size:15px;color:var(--ink);text-decoration:none}
+.brand span{color:var(--green-light)}
+.back{font-size:14px;color:var(--txt-soft);text-decoration:none;padding:10px 14px;border:1px solid var(--border);border-radius:10px;display:inline-block}
+.back:hover,.back:focus-visible{color:var(--green-light);border-color:var(--green-light)}
+
+main{padding:56px 0 40px}
+h1{font-size:clamp(28px,5vw,40px);line-height:1.15;letter-spacing:-.02em;color:var(--ink);margin-bottom:10px}
+.updated{font-size:13px;color:var(--txt-soft);margin-bottom:44px}
+h2{font-size:20px;color:var(--ink);margin:44px 0 14px;letter-spacing:-.01em;scroll-margin-top:90px}
+h2:first-of-type{margin-top:0}
+h3{font-size:16px;color:var(--green-light);margin:26px 0 8px}
+p{margin-bottom:14px;color:var(--txt)}
+ul,ol{margin:0 0 16px 22px}
+li{margin-bottom:8px}
+a{color:var(--green-light)}
+a:hover,a:focus-visible{color:var(--green-dark)}
+strong{color:var(--ink);font-weight:600}
+:focus-visible{outline:2px solid var(--green-light);outline-offset:3px;border-radius:4px}
+
+/* Sommaire */
+nav.toc{background:var(--glass);border:1px solid var(--border);border-radius:16px;padding:22px 26px;margin-bottom:48px}
+nav.toc h2{font-size:13px;text-transform:uppercase;letter-spacing:.12em;color:var(--txt-soft);margin:0 0 12px}
+nav.toc ol{margin:0 0 0 20px;font-size:14px}
+nav.toc li{margin-bottom:5px}
+
+/* Tableaux (traitements, sous-traitants, durées) */
+.table-scroll{overflow-x:auto;margin:0 0 22px;border:1px solid var(--border);border-radius:14px}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:14px}
+th,td{text-align:left;padding:12px 16px;border-bottom:1px solid var(--border);vertical-align:top}
+th{background:var(--glass);color:var(--ink);font-weight:600;white-space:nowrap}
+tr:last-child td{border-bottom:none}
+
+/* Encadré d'information */
+.note{background:var(--glass);border:1px solid rgba(45,106,79,.3);border-radius:16px;padding:20px 24px;margin:24px 0}
+.note p:last-child{margin-bottom:0}
+
+/* Marqueur des champs restant à renseigner AVANT mise en ligne.
+   Supprime la classe (et ce bloc) une fois tous les champs remplis. */
+.todo{background:#facc15;color:#000;font-weight:700;padding:1px 7px;border-radius:5px;font-size:.92em}
+
+footer.legal-footer{border-top:1px solid var(--border);padding:32px 0 56px;font-size:13px;color:var(--txt-soft)}
+footer.legal-footer .wrap{display:flex;gap:8px 20px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+footer.legal-footer nav{display:flex;gap:18px;flex-wrap:wrap}

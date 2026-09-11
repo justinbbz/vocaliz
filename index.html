@@ -4,7 +4,32 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Vocaliz — Agent Vocal IA pour Professionnels</title>
-<meta name="description" content="Vocaliz installe un agent vocal IA sur votre numéro professionnel. Il répond, prend les rendez-vous et gère vos appels — même quand vous êtes sur le terrain.">
+<meta name="description" content="Vocaliz installe un agent vocal IA sur votre numéro professionnel. Il répond, prend les rendez-vous et gère vos appels — même quand vous êtes occupé.">
+<link rel="canonical" href="https://vocaliz-ia.com/">
+<meta name="theme-color" content="#ffffff">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://vocaliz-ia.com/">
+<meta property="og:site_name" content="Vocaliz">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:title" content="Vocaliz — votre téléphone répond pour vous, 24h/24">
+<meta property="og:description" content="Un agent vocal IA sur votre numéro professionnel : il répond, qualifie et prend les rendez-vous, même quand vous êtes occupé. Testez-le au 04 23 34 06 58.">
+<meta property="og:image" content="https://vocaliz-ia.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Vocaliz — agent vocal IA pour les professionnels">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Vocaliz — votre téléphone répond pour vous, 24h/24">
+<meta name="twitter:description" content="Un agent vocal IA qui répond, qualifie et prend vos rendez-vous. Testez-le au 04 23 34 06 58.">
+<meta name="twitter:image" content="https://vocaliz-ia.com/og-image.png">
+<!-- Google n'affiche un logo dans ses resultats que s'il peut telecharger
+     le fichier : il lui faut une vraie URL stable, pas une image en ligne
+     dans le HTML. D'ou ces fichiers, et le chemin absolu. -->
+<link rel="icon" href="/favicon.ico" sizes="48x48 96x96">
+<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+<link rel="icon" type="image/svg+xml" href="/logo.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -22,6 +47,10 @@
 }
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto;}
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;}
+}
 body{
   background:var(--bg);
   color:var(--white);
@@ -60,12 +89,11 @@ h2{font-size:clamp(32px,5vw,56px);margin-bottom:18px;text-shadow:0 0 50px rgba(8
 
 /* ---------- background mesh gradient ---------- */
 .mesh-bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;will-change:transform;}
-.mesh-bg span{position:absolute;border-radius:50%;filter:blur(90px);opacity:.32;will-change:transform;}
-.mesh-bg span:nth-child(1){width:520px;height:520px;background:var(--green-dark);top:-10%;left:-10%;animation:drift1 26s ease-in-out infinite;}
-.mesh-bg span:nth-child(2){width:460px;height:460px;background:var(--green-light);top:30%;right:-15%;animation:drift2 32s ease-in-out infinite;}
-.mesh-bg span:nth-child(3){width:400px;height:400px;background:var(--green-dark);bottom:-15%;left:20%;animation:drift3 30s ease-in-out infinite;}
-.mesh-bg{opacity:.4;}
-#particleCanvas{position:fixed;inset:0;width:100vw;height:100vh;z-index:1;pointer-events:none;}
+.mesh-bg span{position:absolute;border-radius:50%;filter:blur(110px);opacity:.26;will-change:transform;}
+.mesh-bg span:nth-child(1){width:400px;height:400px;background:var(--green-dark);top:-10%;left:-10%;animation:drift1 26s ease-in-out infinite;}
+.mesh-bg span:nth-child(2){width:340px;height:340px;background:var(--green-light);top:30%;right:-15%;animation:drift2 32s ease-in-out infinite;}
+.mesh-bg span:nth-child(3){width:300px;height:300px;background:var(--green-dark);bottom:-15%;left:20%;animation:drift3 30s ease-in-out infinite;}
+.mesh-bg{opacity:.22;}
 @keyframes drift1{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(80px,60px) scale(1.15);}}
 @keyframes drift2{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(-60px,80px) scale(1.1);}}
 @keyframes drift3{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(50px,-70px) scale(1.2);}}
@@ -92,10 +120,29 @@ h2{font-size:clamp(32px,5vw,56px);margin-bottom:18px;text-shadow:0 0 50px rgba(8
   transition:opacity .7s var(--ease-premium),visibility .7s;
 }
 #loader.hide{opacity:0;visibility:hidden;}
-#loaderSvg{width:min(80vw,420px);}
-#loaderSvg text{font-family:'Inter',sans-serif;font-weight:800;font-size:56px;fill:transparent;stroke:var(--green-light);stroke-width:1;letter-spacing:2px;}
-#loaderWave{width:160px;height:36px;opacity:0;transition:opacity .4s ease .4s;}
-#loaderWave.show{opacity:1;}
+#loader{gap:18px;}
+.ld-lockup{display:flex;align-items:center;gap:min(4.5vw,22px);}
+.ld-mark{width:min(17vw,84px);height:min(17vw,84px);flex:none;
+  animation:ldMark .62s cubic-bezier(.34,1.56,.64,1) both;
+  filter:drop-shadow(0 10px 34px rgba(82,183,136,.34));}
+@keyframes ldMark{from{opacity:0;transform:scale(.62) rotate(-9deg);}to{opacity:1;transform:none;}}
+/* Les barres s'animent comme un egaliseur pendant que la page se prepare :
+   c'est la voix, le produit — plutot qu'un mot qui se dessine. */
+.ld-mark .b{transform-box:fill-box;transform-origin:center;animation:ldBar .85s ease-in-out infinite;}
+.ld-mark .b1{animation-delay:0s}   .ld-mark .b2{animation-delay:.11s}
+.ld-mark .b3{animation-delay:.22s} .ld-mark .b4{animation-delay:.33s}
+.ld-mark .b5{animation-delay:.44s}
+@keyframes ldBar{0%,100%{transform:scaleY(.55);}50%{transform:scaleY(1);}}
+.ld-word{font-weight:800;font-size:min(11vw,54px);letter-spacing:.03em;color:#fff;
+  animation:ldWord .55s cubic-bezier(.16,1,.3,1) .16s both;}
+.ld-word span{color:var(--green-light);}
+@keyframes ldWord{from{opacity:0;transform:translateX(-14px);letter-spacing:.22em;}to{opacity:1;transform:none;letter-spacing:.03em;}}
+.ld-tag{font-family:var(--mono);font-size:min(3.4vw,13px);letter-spacing:.3em;text-transform:uppercase;
+  color:rgba(255,255,255,.42);animation:ldTag .5s ease .34s both;}
+@keyframes ldTag{from{opacity:0;transform:translateY(7px);}to{opacity:1;transform:none;}}
+@media(prefers-reduced-motion:reduce){
+  .ld-mark,.ld-word,.ld-tag,.ld-mark .b{animation:none;}
+}
 
 /* ---------- custom cursor ---------- */
 .cursor-dot,.cursor-ring{position:fixed;top:0;left:0;pointer-events:none;z-index:9998;border-radius:50%;transform:translate(-50%,-50%);}
@@ -113,6 +160,8 @@ header{
   position:fixed;top:2px;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:space-between;
   padding:18px 32px;backdrop-filter:blur(14px);background:rgba(10,10,10,.55);border-bottom:1px solid var(--glass-border);
 }
+.brand-lockup{display:flex;align-items:center;gap:10px;}
+.logo-mark{width:27px;height:27px;flex:none;border-radius:7px;}
 .logo{font-weight:800;font-size:22px;letter-spacing:.02em;position:relative;text-shadow:0 0 14px rgba(82,183,136,.6);animation:glow 3s ease-in-out infinite;}
 @keyframes glow{0%,100%{text-shadow:0 0 10px rgba(82,183,136,.5);}50%{text-shadow:0 0 22px rgba(82,183,136,.9),0 0 6px rgba(255,255,255,.4);}}
 .logo::before,.logo::after{content:'VOCALIZ';position:absolute;left:0;top:0;width:100%;overflow:hidden;opacity:0;color:var(--green-light);}
@@ -175,7 +224,7 @@ header{
 .sim-formula{display:flex;align-items:flex-end;gap:20px;margin-bottom:32px;flex-wrap:wrap;}
 .sim-field{flex:1;min-width:140px;}
 .sim-op{font-size:20px;font-weight:700;color:var(--green-light);padding-bottom:16px;}
-.sim-field label{display:block;font-size:13px;color:rgba(255,255,255,.5);margin-bottom:10px;line-height:1.3;min-height:34px;}
+.sim-field label{display:block;font-size:15px;color:rgba(255,255,255,.5);margin-bottom:10px;line-height:1.3;min-height:40px;}
 .sim-field input{width:100%;background:rgba(255,255,255,.04);border:1px solid var(--glass-border);border-radius:14px;padding:14px 18px;color:var(--white);font-size:22px;font-weight:700;font-family:'Inter',sans-serif;transition:border-color .3s ease,box-shadow .3s ease;}
 .sim-field input:focus{outline:none;border-color:var(--green-light);box-shadow:0 0 0 3px rgba(82,183,136,.18);}
 .sim-input-wrap{position:relative;display:flex;align-items:center;gap:10px;}
@@ -223,9 +272,14 @@ header{
 .play-ring:nth-child(2).animate{animation-delay:.8s;}
 .play-ring:nth-child(3).animate{animation-delay:1.6s;}
 @keyframes radar{0%{transform:scale(.9);opacity:.7;}100%{transform:scale(1.9);opacity:0;}}
-#playBtn{position:relative;z-index:2;width:76px;height:76px;border-radius:50%;background:linear-gradient(135deg,var(--green-dark),var(--green-light));display:flex;align-items:center;justify-content:center;font-size:22px;color:#06120c;transition:transform .3s var(--ease-spring);}
-#playBtn:hover{transform:scale(1.06);}
-#demoWaveCanvas{width:100%;height:90px;margin-bottom:16px;display:block;}
+.call-icon{position:relative;z-index:2;width:76px;height:76px;border-radius:50%;background:linear-gradient(135deg,var(--green-dark),var(--green-light));display:flex;align-items:center;justify-content:center;font-size:30px;transition:transform .3s var(--ease-spring);}
+.call-number{display:inline-flex;align-items:center;gap:14px;margin:0 auto 18px;padding:18px 34px;border-radius:20px;background:linear-gradient(135deg,rgba(45,106,79,.3),rgba(82,183,136,.1));border:1px solid rgba(82,183,136,.42);font-family:var(--mono);font-weight:700;font-size:clamp(26px,5.2vw,40px);letter-spacing:.02em;color:#fff;transition:transform .3s var(--ease-spring),border-color .3s ease,box-shadow .3s ease;}
+.call-number:hover,.call-number:focus-visible{transform:translateY(-3px);border-color:var(--green-light);box-shadow:0 0 44px rgba(82,183,136,.3);}
+.call-hint{font-size:15px;color:rgba(255,255,255,.62);margin-bottom:26px;}
+.call-meta{display:flex;gap:10px 28px;justify-content:center;flex-wrap:wrap;font-family:var(--mono);font-size:12.5px;color:rgba(255,255,255,.5);}
+.call-meta span{display:inline-flex;align-items:center;gap:7px;}
+.call-meta .dot{width:7px;height:7px;border-radius:50%;background:var(--green-light);box-shadow:0 0 8px var(--green-light);animation:livePulse 2s ease-in-out infinite;}
+@keyframes livePulse{0%,100%{opacity:1;}50%{opacity:.35;}}
 .demo-caption{font-family:var(--mono);color:rgba(255,255,255,.55);font-size:13px;}
 
 /* ---------- BENEFITS spotlight ---------- */
@@ -257,23 +311,50 @@ header{
 .cycle-center-label{font-family:var(--mono);font-weight:700;font-size:clamp(10px,1.3vw,14px);color:#06120c;}
 .cycle-node{position:absolute;transform:translate(-50%,-50%);width:150px;max-width:36%;background:rgba(10,10,10,.85);border:1px solid var(--glass-border);border-radius:14px;padding:12px 14px;font-size:12.5px;font-weight:600;color:rgba(255,255,255,.9);text-align:center;line-height:1.35;backdrop-filter:blur(8px);z-index:2;}
 .cycle-node .n{display:block;font-family:var(--mono);color:var(--green-light);font-size:11px;margin-bottom:3px;}
+/* hexagone regulier : rayon 42% du conteneur, sommet en haut */
+.cn1{left:50%;top:8%;}
+.cn2{left:86.4%;top:29%;}
+.cn3{left:86.4%;top:71%;}
+.cn4{left:50%;top:92%;}
+.cn5{left:13.6%;top:71%;}
+.cn6{left:13.6%;top:29%;}
 @media(max-width:700px){
-  .cycle-wrap{aspect-ratio:auto;max-width:420px;display:flex;flex-direction:column;align-items:center;}
-  .cycle-svg{display:none;}
-  .cycle-center{position:static;transform:none;width:150px;margin:0 0 20px;}
-  .cycle-node{position:static;transform:none;width:100%;max-width:100%;margin-bottom:10px;text-align:left;display:flex;align-items:center;gap:10px;}
-  .cycle-node .n{margin-bottom:0;}
+  /* le cercle reste un cercle : on resserre l'hexagone (rayon 37%) et on met
+     l'anneau SVG a l'echelle correspondante, au lieu de tout empiler en colonne. */
+  .cycle-wrap{max-width:340px;}
+  .cycle-svg{transform:scale(.88);}
+  .cycle-center{width:27%;gap:2px;}
+  /* largeur explicite : en absolu avec « left » seul, la largeur disponible
+     vaut (conteneur - left), ce qui ecrasait les noeuds de droite a 59px. */
+  .cycle-node{width:31%;max-width:31%;padding:7px 6px;font-size:9.5px;line-height:1.28;border-radius:10px;}
+  .cycle-node .n{font-size:9px;margin-bottom:1px;}
+  .cn1{left:50%;top:13%;}
+  .cn2{left:82%;top:31.5%;}
+  .cn3{left:82%;top:68.5%;}
+  .cn4{left:50%;top:87%;}
+  .cn5{left:18%;top:68.5%;}
+  .cn6{left:18%;top:31.5%;}
+}
+@media(max-width:360px){
+  .cycle-node{font-size:8.6px;padding:6px 5px;width:32%;max-width:32%;}
 }
 
 /* ---------- TESTIMONIALS ---------- */
 .carousel{position:relative;max-width:900px;margin:0 auto;padding:20px 24px;}
 .carousel-track{display:flex;gap:24px;}
+@media(max-width:900px){
+  /* sans wrap, les cartes 2 et 3 partaient hors de l'ecran et etaient
+     rognees par body{overflow-x:hidden} : elles etaient inaccessibles. */
+  .carousel{padding:20px 0;}
+  .carousel-track{flex-wrap:wrap;gap:16px;}
+}
 .t-card{min-width:calc(33.333% - 16px);padding:28px;transition:transform .35s var(--ease-premium),opacity .35s ease,border-color .35s ease,box-shadow .35s ease;}
 .t-card:hover{transform:translateY(-6px) scale(1.03);border-color:rgba(82,183,136,.4);box-shadow:0 0 40px rgba(82,183,136,.2);}
 .stars{color:var(--green-light);margin-bottom:14px;letter-spacing:2px;}
 .t-card p{font-size:14px;color:rgba(255,255,255,.75);margin-bottom:18px;}
 .t-name{font-weight:700;font-size:14px;}
 .t-role{font-family:var(--mono);font-size:12px;color:rgba(255,255,255,.5);}
+
 
 /* ---------- FAQ ---------- */
 .faq-list{max-width:760px;margin:0 auto;position:relative;z-index:1;}
@@ -300,32 +381,53 @@ header{
 /* ---------- FOOTER ---------- */
 footer{padding:50px 0;border-top:1px solid var(--glass-border);text-align:center;color:rgba(255,255,255,.5);font-size:13px;position:relative;z-index:1;}
 footer .foot-title{font-weight:800;color:var(--white);margin-bottom:10px;letter-spacing:.02em;}
+footer .foot-person{display:inline-flex;align-items:center;gap:9px;margin-top:14px;padding:9px 16px;border:1px solid var(--glass-border);border-radius:11px;color:rgba(255,255,255,.7);transition:border-color .3s ease,color .3s ease,transform .3s ease;}
+footer .foot-person:hover,footer .foot-person:focus-visible{border-color:var(--green-light);color:#fff;transform:translateY(-2px);}
+footer .foot-person svg{width:15px;height:15px;flex:none;}
 footer a:hover{color:var(--green-light);}
 
 /* ---------- MODAL ---------- */
 .modal-overlay{position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.7);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;visibility:hidden;transition:opacity .4s var(--ease-premium),visibility .4s;}
 .modal-overlay.show{opacity:1;visibility:visible;}
-.modal-box{width:100%;max-width:560px;max-height:88vh;overflow-y:auto;padding:36px;background:#0f0f0f;border:1px solid var(--glass-border);border-radius:24px;transform:scale(.92) translateY(10px);transition:transform .4s var(--ease-spring);}
+.modal-box{width:100%;max-width:560px;max-height:94vh;overflow-y:auto;padding:22px 26px;background:#0f0f0f;border:1px solid var(--glass-border);border-radius:24px;transform:scale(.92) translateY(10px);transition:transform .4s var(--ease-spring);}
 .modal-overlay.show .modal-box{transform:scale(1) translateY(0);}
 .modal-close{position:absolute;top:18px;right:18px;font-size:20px;color:rgba(255,255,255,.6);}
-.modal-box h3{font-size:22px;margin-bottom:6px;}
-.modal-box .modal-sub{color:rgba(255,255,255,.55);font-size:14px;margin-bottom:28px;}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
-.form-field{margin-bottom:14px;}
-.form-field label{display:block;font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:rgba(255,255,255,.55);margin-bottom:7px;}
-.form-field input,.form-field select,.form-field textarea{width:100%;background:rgba(255,255,255,.05);border:1px solid var(--glass-border);border-radius:10px;padding:12px 14px;color:var(--white);font-family:'Inter',sans-serif;font-size:14px;transition:border-color .3s;}
+.modal-box h3{font-size:21px;margin-bottom:4px;}
+.modal-box .modal-sub{color:rgba(255,255,255,.55);font-size:14px;margin-bottom:16px;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:10px;}
+.form-field{margin-bottom:10px;}
+.form-field label{display:block;font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:rgba(255,255,255,.55);margin-bottom:5px;}
+.form-field input,.form-field select,.form-field textarea{width:100%;background:rgba(255,255,255,.05);border:1px solid var(--glass-border);border-radius:10px;padding:10px 14px;color:var(--white);font-family:'Inter',sans-serif;font-size:14px;transition:border-color .3s;}
 .form-field input:focus,.form-field select:focus,.form-field textarea:focus{outline:none;border-color:var(--green-light);}
 .form-field select{cursor:pointer;}
 .radio-group{display:flex;gap:10px;}
-.radio-opt{flex:1;padding:10px;text-align:center;border:1px solid var(--glass-border);border-radius:10px;font-size:14px;transition:all .25s;}
+.radio-opt{flex:1;padding:9px;text-align:center;border:1px solid var(--glass-border);border-radius:10px;font-size:14px;transition:all .25s;}
 .radio-opt.active{border-color:var(--green-light);background:rgba(82,183,136,.12);color:var(--green-light);}
 .parrain-fields{display:grid;grid-template-rows:0fr;transition:grid-template-rows .45s var(--ease-premium);}
 .parrain-fields.open{grid-template-rows:1fr;}
 .parrain-inner{overflow:hidden;}
-.submit-btn{width:100%;padding:16px;border-radius:100px;background:linear-gradient(135deg,var(--green-dark),var(--green-light));color:#06120c;font-weight:700;font-size:15px;margin-top:10px;transition:transform .3s var(--ease-spring);}
+.submit-btn{width:100%;padding:14px;border-radius:100px;background:linear-gradient(135deg,var(--green-dark),var(--green-light));color:#06120c;font-weight:700;font-size:15px;margin-top:10px;transition:transform .3s var(--ease-spring);}
 .submit-btn:hover{transform:translateY(-2px);}
-.form-success{display:none;text-align:center;padding:30px 10px;font-size:16px;}
+.form-success{display:none;text-align:center;padding:14px 6px 4px;}
 .form-success.show{display:block;}
+.success-mark{width:72px;height:72px;display:block;margin:0 auto 24px;}
+.success-mark circle{fill:none;stroke:var(--green-light);stroke-width:1.6;opacity:.4;stroke-dasharray:220;stroke-dashoffset:220;}
+.success-mark path{fill:none;stroke:var(--green-light);stroke-width:3.4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:46;stroke-dashoffset:46;}
+.form-success.show .success-mark circle{animation:drawRing .75s var(--ease-premium) forwards;}
+.form-success.show .success-mark path{animation:drawCheck .4s var(--ease-premium) .5s forwards;}
+@keyframes drawRing{to{stroke-dashoffset:0;}}
+@keyframes drawCheck{to{stroke-dashoffset:0;}}
+.form-success h3{font-size:21px;margin-bottom:8px;}
+.form-success .succ-sub{color:rgba(255,255,255,.62);font-size:14.5px;line-height:1.6;max-width:340px;margin:0 auto;}
+.success-stamp{margin-top:26px;padding-top:15px;border-top:1px solid var(--glass-border);font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:rgba(82,183,136,.75);}
+.netbar{position:fixed;left:0;right:0;top:0;z-index:9999;transform:translateY(-100%);transition:transform .45s var(--ease-premium);background:linear-gradient(135deg,#7a2d2d,#b4453f);color:#fff;font-size:13.5px;font-weight:600;text-align:center;padding:11px 18px;box-shadow:0 6px 30px rgba(0,0,0,.5);}
+.netbar.show{transform:translateY(0);}
+.netbar.back{background:linear-gradient(135deg,var(--green-dark),var(--green-light));color:#06120c;}
+.netbar a{text-decoration:underline;font-weight:700;}
+.hp-field{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;}
+.form-legal{font-size:11.5px;line-height:1.5;color:rgba(255,255,255,.45);margin:4px 0 10px;}
+.form-legal a{color:var(--green-light);text-decoration:underline;}
+.submit-btn:disabled{opacity:.6;cursor:not-allowed;}
 
 @media(max-width:900px){
   .hero-grid{grid-template-columns:1fr;}
@@ -339,18 +441,213 @@ footer a:hover{color:var(--green-light);}
   header{padding:14px 18px;}
   .bg-label{display:none;}
 }
+
+/* ================= SITE CLAIR =================================================
+   Ajoute le 10/09/2026, etendu a toute la page le meme soir. Bloc purement
+   colorimetrique : aucune regle de mise en page, de taille ou d'animation.
+   Base blanche, sections alternees en #f5f8f6, cartes vertes, vert sapin du
+   logo (#2d6a4f) pour les accents. Supprimer ce bloc rend le site a son noir
+   d'origine. */
+:root{
+  --l-bg:#f5f8f6; --l-txt:#0e1c15;
+  --l-txt-2:rgba(14,28,21,.68); --l-txt-3:rgba(14,28,21,.5);
+  --l-border:rgba(14,28,21,.1); --l-green:#2d6a4f;
+  --l-card:#cfe6da; --l-card-bd:rgba(45,106,79,.3);
+}
+body{background:#ffffff;color:var(--l-txt);}
+h2{text-shadow:none;}
+.section-sub,p{color:var(--l-txt-2);}
+.eyebrow{color:var(--l-green);}
+a{color:var(--l-green);}
+.bg-label{color:rgba(14,28,21,.045);-webkit-text-stroke:1px rgba(45,106,79,.07);}
+.mesh-bg{opacity:.12;}
+
+/* chrome : en-tete, chargement, barre de progression, curseur, pied de page */
+header{background:rgba(255,255,255,.72);border-bottom-color:var(--l-border);}
+.logo{color:var(--l-txt);text-shadow:none;animation:none;}
+#loader{background:#ffffff;}
+.progress-bar{background:rgba(14,28,21,.07);}
+.progress-fill{box-shadow:none;}
+.cursor-dot{background:var(--l-green);}
+.cursor-ring{border-color:var(--l-green);}
+footer{color:var(--l-txt-3);border-top-color:var(--l-border);}
+
+/* hero */
+.hero-title{color:var(--l-txt);}
+.hero-title .accent{background:linear-gradient(90deg,#2d6a4f,#1b4332);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:none;}
+.hero-sub{color:var(--l-txt-2);}
+
+/* cartes : vertes partout, plutot que blanc sur blanc */
+.glass,.spot-card,.sol-card,.tilt-card{background:var(--l-card);border-color:var(--l-card-bd);backdrop-filter:none;}
+:is(.spot-card,.sol-card,.tilt-card) h3{color:var(--l-txt);}
+:is(.spot-card,.sol-card,.tilt-card) p{color:var(--l-txt-2);}
+:is(.spot-card,.sol-card,.tilt-card)::before{background:radial-gradient(220px circle at var(--mx) var(--my), rgba(45,106,79,.1), transparent 70%);}
+.icn{color:var(--l-green);line-height:0;}
+.icn svg{display:block;}
+.call-icon svg,.cycle-center-icon svg{display:inline-block;vertical-align:middle;}
+.call-icon,.cycle-center-icon{color:var(--l-green);}
+.btn-ghost{border-color:var(--l-border);background:transparent;color:var(--l-txt);}
+.faq-item{border-bottom-color:var(--l-border);}
+.faq-q{color:var(--l-txt);}
+.faq-a{color:var(--l-txt-2);}
+
+/* sections alternees, pour garder un rythme sans casser le blanc */
+:is(#problem,#solution,#benefits,#cycle,#faq,#parrainage){background:var(--l-bg);}
+
+/* fin de page : la lueur et les braises deviennent discretes sur blanc */
+.cta-glow{background:radial-gradient(circle,rgba(45,106,79,.12),transparent 70%);}
+.ember{background:var(--l-green);box-shadow:none;}
+
+/* simulateur : encadre vert clair, resultat vert profond */
+#simulator{background:#ffffff;}
+#simulator .sim-box{background:var(--l-card);border-color:var(--l-card-bd);}
+#simulator .sim-field label{color:var(--l-txt-2);}
+#simulator .sim-field input{background:#fff;border-color:rgba(45,106,79,.28);color:var(--l-txt);}
+#simulator .sim-op{color:var(--l-green);}
+#simulator .sim-unit{color:var(--l-txt-3);}
+#simulator .sim-result{background:var(--l-green);border-color:var(--l-green);}
+#simulator .sim-result .sim-eq{color:rgba(255,255,255,.7);}
+#simulator .sim-result .amount{color:#d8f3e6;}
+#simulator .sim-result .label{color:rgba(255,255,255,.9);}
+
+/* modale de devis */
+.modal-overlay{background:rgba(14,28,21,.45);}
+.modal-box{background:var(--l-card);border-color:var(--l-card-bd);}
+.modal-close{color:var(--l-txt-3);}
+.modal-box h3{color:var(--l-txt);}
+.modal-box .modal-sub{color:var(--l-txt-2);}
+.form-field label{color:var(--l-txt-3);}
+.form-field input,.form-field select,.form-field textarea{background:#fff;border-color:rgba(45,106,79,.28);color:var(--l-txt);}
+.form-field input:focus,.form-field select:focus,.form-field textarea:focus{border-color:var(--l-green);}
+.radio-opt{border-color:rgba(45,106,79,.28);background:#fff;}
+.radio-opt.active{border-color:var(--l-green);background:rgba(45,106,79,.12);color:var(--l-green);}
+.form-legal{color:var(--l-txt-3);}
+.form-legal a{color:var(--l-green);}
+.success-mark circle,.success-mark path{stroke:var(--l-green);}
+.form-success h3{color:var(--l-txt);}
+.form-success .succ-sub{color:var(--l-txt-2);}
+.success-stamp{border-top-color:var(--l-border);color:var(--l-green);}
+/* voile sombre et terminal du hero, herites de la version noire */
+.vignette{box-shadow:inset 0 0 220px rgba(14,28,21,.05);}
+.scanlines{background:repeating-linear-gradient(to bottom, rgba(14,28,21,.03) 0px, rgba(14,28,21,.03) 1px, transparent 1px, transparent 3px);}
+.ia-screen{background:var(--l-card);}
+.ia-status,.ia-terminal{color:var(--l-green);}
+.ia-dot{background:var(--l-green);box-shadow:none;}
+.ia-terminal::after{background:var(--l-green);}
+.ia-caption{color:var(--l-txt-3);}
+/* schema du cycle : noeuds encore en noir dans la version d'origine */
+.cycle-node{background:var(--l-card);border-color:var(--l-card-bd);color:var(--l-txt);backdrop-filter:none;}
+.cycle-node .n{color:var(--l-green);}
+.cycle-center{box-shadow:0 0 40px rgba(45,106,79,.18);}
+/* corrections : elements encore ecrits pour un fond noir */
+.ld-word{color:var(--l-txt);}
+.ld-word span{color:var(--l-green);}
+.ld-tag{color:var(--l-txt-3);}
+header .btn-ghost{background:var(--l-green);border-color:var(--l-green);color:#fff;}
+.eyebrow{color:#1b4332;background:rgba(45,106,79,.18);border-color:rgba(45,106,79,.38);backdrop-filter:none;}
+.call-hint{color:var(--l-txt-2);}
+.play-ring{border-color:var(--l-green);}
+.call-number{background:var(--l-green);border-color:var(--l-green);color:#fff;}
+.call-number:hover{border-color:#1b4332;}
+footer .foot-title{color:var(--l-txt);}
+footer .foot-person{color:var(--l-txt-2);border-color:var(--l-border);}
+footer .foot-person:hover,footer .foot-person:focus-visible{border-color:var(--l-green);color:var(--l-green);}
+footer a:hover{color:var(--l-green);}
+.call-meta{color:var(--l-txt-2);}
+.call-meta .dot{background:var(--l-green);box-shadow:none;}
+/* textes releves apres audit de contraste */
+.ia-caption{color:var(--l-txt-2);}
+.scroll-cue,.scroll-cue span{color:var(--l-txt-2);}
+.scroll-cue .scroll-line{background:linear-gradient(to bottom, var(--l-green), transparent);}
+.faq-cats .cat{color:#1b4332;}
+footer{color:var(--l-txt-2);}
+/* modale de devis : meme traitement que le simulateur */
+.modal-box .modal-sub,.form-legal{color:var(--l-txt-2);}
+.form-field label{color:#1b4332;}
+.success-stamp{color:#1b4332;border-top-color:var(--l-card-bd);}
+
+/* barre de perte de connexion */
+.netbar{background:#a83a34;box-shadow:0 4px 18px rgba(14,28,21,.18);}
+.netbar.back{background:var(--l-green);color:#fff;}
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "Vocaliz",
+  "description": "Agent vocal IA qui répond aux appels, qualifie les demandes et prend les rendez-vous pour les artisans, commerçants et dirigeants de TPE.",
+  "url": "https://vocaliz-ia.com/",
+  "image": "https://vocaliz-ia.com/og-image.png",
+  "logo": "https://vocaliz-ia.com/favicon-512.png",
+  "telephone": "+33423340658",
+  "email": "justin@vocaliz-ia.com",
+  "areaServed": { "@type": "Country", "name": "France" },
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "1 rue de Géromont",
+    "postalCode": "08430",
+    "addressLocality": "Neuvizy",
+    "addressCountry": "FR"
+  },
+  "founder": {
+    "@type": "Person",
+    "name": "Justin Boitte",
+    "sameAs": "https://www.linkedin.com/in/justin-boitte-71a150418/"
+  },
+  "sameAs": ["https://www.linkedin.com/in/justin-boitte-71a150418/"],
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+    "opens": "00:00",
+    "closes": "23:59"
+  }
+}
+</script>
 </head>
 <body class="loading">
 
+<div class="netbar" id="netbar" role="status" aria-live="polite"></div>
+
 <!-- LOADER -->
 <div id="loader">
-  <svg id="loaderSvg" viewBox="0 0 400 90"><text x="10" y="65">VOCALIZ</text></svg>
-  <svg id="loaderWave" viewBox="0 0 160 36"><path id="loaderWavePath" fill="none" stroke="#52b788" stroke-width="2" stroke-linecap="round"/></svg>
+  <div class="ld-lockup">
+    <svg class="ld-mark" viewBox="0 0 512 512" aria-hidden="true">
+      <defs><linearGradient id="ldGrad" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#6fd9a8"/><stop offset="1" stop-color="#2d6a4f"/>
+      </linearGradient></defs>
+      <rect width="512" height="512" rx="112" fill="url(#ldGrad)"/>
+      <g fill="#06120c">
+        <rect class="b b1" x="70"  y="204" width="52" height="104" rx="26"/>
+        <rect class="b b2" x="150" y="152" width="52" height="208" rx="26"/>
+        <rect class="b b3" x="230" y="100" width="52" height="312" rx="26"/>
+        <rect class="b b4" x="310" y="152" width="52" height="208" rx="26"/>
+        <rect class="b b5" x="390" y="204" width="52" height="104" rx="26"/>
+      </g>
+    </svg>
+    <div class="ld-word">VOCAL<span>IZ</span></div>
+  </div>
+  <div class="ld-tag">Agent vocal IA</div>
 </div>
+<script>
+/* Script volontairement place ici, en clair et non differe : il s'execute des
+   que le navigateur lit cette ligne. Le voile d'accueil ne depend donc plus
+   ni de three.js, ni des polices, ni de DOMContentLoaded — sinon un reseau
+   lent laissait le visiteur devant un ecran noir le temps du telechargement. */
+(function(){
+  var done = false;
+  window.__vocalizReveal = function(){
+    if(done) return; done = true;
+    var l = document.getElementById('loader');
+    if(l) l.classList.add('hide');
+    document.body.classList.remove('loading');
+    if(typeof window.__startHeroTitle === 'function') window.__startHeroTitle();
+  };
+  var reduce = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  setTimeout(window.__vocalizReveal, reduce ? 0 : 850);
+})();
+</script>
 
 <div class="mesh-bg" id="meshBg"><span></span><span></span><span></span></div>
-<canvas id="particleCanvas"></canvas>
 <div class="scanlines"></div>
 <div class="vignette"></div>
 
@@ -359,7 +656,10 @@ footer a:hover{color:var(--green-light);}
 <div class="cursor-ring" id="cursorRing"></div>
 
 <header>
-  <div class="logo" data-text="VOCALIZ">VOCALIZ</div>
+  <div class="brand-lockup">
+    <svg class="logo-mark" viewBox="0 0 512 512" aria-hidden="true"><defs><linearGradient id="hdGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6fd9a8"/><stop offset="1" stop-color="#2d6a4f"/></linearGradient></defs><rect width="512" height="512" rx="112" fill="url(#hdGrad)"/><g fill="#06120c"><rect x="70" y="204" width="52" height="104" rx="26"/><rect x="150" y="152" width="52" height="208" rx="26"/><rect x="230" y="100" width="52" height="312" rx="26"/><rect x="310" y="152" width="52" height="208" rx="26"/><rect x="390" y="204" width="52" height="104" rx="26"/></g></svg>
+    <div class="logo" data-text="VOCALIZ">VOCALIZ</div>
+  </div>
   <button class="btn btn-ghost magnetic" data-open-modal style="padding:11px 22px;font-size:13px;">Demander un devis</button>
 </header>
 
@@ -370,8 +670,11 @@ footer a:hover{color:var(--green-light);}
   <div class="container hero-grid">
     <div id="heroCol">
       <div class="eyebrow">Agent Vocal IA — Répondeur Intelligent</div>
-      <h1 class="hero-title" id="heroTitle"></h1>
-      <p class="hero-sub">Vocaliz installe un agent vocal IA sur votre numéro professionnel. Il répond, prend les rendez-vous et gère vos appels — même quand vous êtes sur le terrain.</p>
+      <!-- Le titre est ecrit en dur : il doit exister dans le HTML pour les
+           moteurs de recherche et rester lisible si le JS tarde ou echoue.
+           startHeroTitle() le remplace ensuite par sa version animee. -->
+      <h1 class="hero-title" id="heroTitle">Votre téléphone répond pour vous <span class="accent">24h/24,</span> <span class="accent">7j/7</span></h1>
+      <p class="hero-sub">Vocaliz installe un agent vocal IA sur votre numéro professionnel. Il répond, prend les rendez-vous et gère vos appels — même quand vous êtes occupé.</p>
       <button class="btn btn-primary magnetic" data-open-modal>Demander votre devis →</button>
     </div>
     <div class="hero-visual" id="heroVisual">
@@ -379,7 +682,7 @@ footer a:hover{color:var(--green-light);}
         <div class="hud-corner tl"></div><div class="hud-corner tr"></div><div class="hud-corner bl"></div><div class="hud-corner br"></div>
         <div class="ia-top">
           <div class="ia-status"><span class="ia-dot"></span> AGENT ACTIF</div>
-          <div class="mono" style="font-size:11px;color:rgba(255,255,255,.4);">00:00:14</div>
+          <div class="mono" style="font-size:11px;color:rgba(14,28,21,.72);">00:00:14</div>
         </div>
         <canvas id="waveCanvas"></canvas>
         <div class="ia-terminal" id="iaTerminal"></div>
@@ -396,7 +699,7 @@ footer a:hover{color:var(--green-light);}
   <div class="container">
     <div class="glass sim-box sd" data-sd="scale">
       <div class="eyebrow">Simulateur</div>
-      <h2>Combien perdez-vous en ne répondant pas au téléphone&nbsp;?</h2>
+      <h2>Combien perdez-vous lorsque vous ne répondez pas au téléphone&nbsp;?</h2>
       <p class="section-sub" style="margin-bottom:32px;">Modifiez les chiffres ci-dessous — ce sont les vôtres.</p>
       <div class="sim-formula">
         <div class="sim-field"><label>Appels ratés par jour, en moyenne</label><input type="number" id="simCalls" value="3" min="0"></div>
@@ -415,7 +718,7 @@ footer a:hover{color:var(--green-light);}
         <span class="amount sim-annual-amount" id="simAnnual">0 €</span>
         <span class="label">perdus par an</span>
       </div>
-      <button class="btn btn-primary magnetic sim-cta" data-open-modal>Demander votre devis pour ne plus en perdre <span aria-hidden="true">📞</span></button>
+      <button class="btn btn-primary magnetic sim-cta" data-open-modal>Demander votre devis pour ne plus en perdre →</button>
     </div>
   </div>
 </section>
@@ -426,11 +729,11 @@ footer a:hover{color:var(--green-light);}
   <div class="container">
     <div class="eyebrow sd" data-sd="up">Le problème</div>
     <h2 class="sd" data-sd="up">Combien d'appels ratez-vous chaque jour&nbsp;?</h2>
-    <p class="section-sub sd" data-sd="up">Vous êtes sur un chantier. Un client appelle. Vous ne décrochez pas. Il rappelle un concurrent. Vous venez de perdre une prestation.</p>
+    <p class="section-sub sd" data-sd="up">Vous êtes en pleine prestation&nbsp;: sur un chantier, sous un capot, en rendez-vous, les mains prises. Un client appelle. Vous ne décrochez pas. Il appelle le concurrent suivant. Vous venez de perdre une prestation.</p>
     <div class="grid-3">
-      <div class="glass tilt-card"><div class="icn">📵</div><h3>Appel manqué</h3><p>→ client perdu, il appelle le concurrent suivant sur Google.</p></div>
-      <div class="glass tilt-card"><div class="icn">🎙️</div><h3>Messagerie vocale</h3><p>→ image non professionnelle, peu de gens laissent un message.</p></div>
-      <div class="glass tilt-card"><div class="icn">🌙</div><h3>Soirs et week-ends</h3><p>→ zéro réponse, alors que les clients cherchent justement à ce moment-là.</p></div>
+      <div class="glass tilt-card"><div class="icn"><svg class="ic" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15.7 13.6a1.8 1.8 0 0 1 2.3-.2l1.6 1.1a2 2 0 0 1 .4 2.9l-.8 1c-.6.7-1.6 1-2.5.7C13 17.8 8.4 13.9 5.5 8.5c-.4-.9-.2-2 .5-2.6l1-.8a2 2 0 0 1 2.9.5l1.1 1.6c.5.7.4 1.7-.2 2.3l-.8.8a13.6 13.6 0 0 0 4 4z"/><line x1="3.5" y1="20.5" x2="20.5" y2="3.5"/></svg></div><h3>Appel manqué</h3><p>→ client perdu, il appelle le concurrent suivant sur Google.</p></div>
+      <div class="glass tilt-card"><div class="icn"><svg class="ic" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6.5" cy="11" r="3.6"/><circle cx="17.5" cy="11" r="3.6"/><line x1="6.5" y1="18" x2="17.5" y2="18"/></svg></div><h3>Messagerie vocale</h3><p>→ image non professionnelle, peu de gens laissent un message.</p></div>
+      <div class="glass tilt-card"><div class="icn"><svg class="ic" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.3A8.6 8.6 0 0 1 9.7 3.5a8.6 8.6 0 1 0 10.8 10.8z"/></svg></div><h3>Soirs et week-ends</h3><p>→ zéro réponse, alors que les clients cherchent justement à ce moment-là.</p></div>
     </div>
   </div>
 </section>
@@ -463,20 +766,25 @@ footer a:hover{color:var(--green-light);}
   </div>
 </section>
 
-<!-- DEMO AUDIO -->
+<!-- DEMO : APPEL REEL -->
 <section id="demo">
   <div class="container">
     <div class="glass demo-box sd" data-sd="scale">
       <div class="eyebrow">Démo</div>
-      <h2>Écoutez par vous-même</h2>
-      <p class="section-sub center" style="margin-bottom:36px;">Un vrai appel géré par un agent Vocaliz</p>
+      <h2>Testez la démo, appelez</h2>
+      <p class="call-hint">Clara est l'un de nos agents. Appelez-la, posez-lui vos questions, demandez un rendez-vous&nbsp;: c'est exactement ce que vos clients entendront.</p>
       <div class="play-wrap">
-        <div class="play-ring"></div><div class="play-ring"></div><div class="play-ring"></div>
-        <button id="playBtn">▶</button>
+        <div class="play-ring animate"></div><div class="play-ring animate"></div><div class="play-ring animate"></div>
+        <span class="call-icon" aria-hidden="true"><svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.24 11.4 11.4 0 0 0 3.6.58 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11.4 11.4 0 0 0 .58 3.6 1 1 0 0 1-.24 1z"/><path d="M15.6 3.4a7.4 7.4 0 0 1 5 5"/><path d="M14.9 7a3.8 3.8 0 0 1 2.1 2.1"/></svg></span>
       </div>
-      <canvas id="demoWaveCanvas"></canvas>
-      <div class="demo-caption" id="demoCaption">00:00 / 01:24 · Appel client réel</div>
-      <audio id="demoAudio" src="demo-call.mp3" preload="metadata"></audio>
+      <a class="call-number" href="tel:+33423340658" aria-label="Appeler la démo Clara au 04 23 34 06 58">
+        04&nbsp;23&nbsp;34&nbsp;06&nbsp;58
+      </a>
+      <div class="call-meta">
+        <span><i class="dot"></i>Clara répond 24h/24, 7j/7</span>
+        <span>Appel non surtaxé</span>
+        <span>Aucune inscription</span>
+      </div>
     </div>
   </div>
 </section>
@@ -489,12 +797,12 @@ footer a:hover{color:var(--green-light);}
     <h2 class="sd" data-sd="up">Pourquoi choisir Vocaliz&nbsp;?</h2>
     <p class="section-sub sd" data-sd="up">&nbsp;</p>
     <div class="spotlight-grid" id="spotGrid">
-      <div class="glass spot-card"><div class="icn">📞</div><h3>Répond à tous les appels</h3><p>Jusqu'à 20 appels entrants sur la ligne, au même moment.</p></div>
-      <div class="glass spot-card"><div class="icn">💶</div><h3>2 à 3× moins cher <strong>qu'une secrétaire</strong></h3><p>Charges patronales comprises.</p></div>
-      <div class="glass spot-card"><div class="icn">✅</div><h3>Zéro rendez-vous manqué</h3><p>Un rappel 24h à l'avance est envoyé au client pour lui rappeler son rendez-vous.</p></div>
-      <div class="glass spot-card"><div class="icn">⭐</div><h3>Réputation Google</h3><p>Un client qui obtient une réponse est un client qui laisse un avis.</p></div>
-      <div class="glass spot-card"><div class="icn">🔒</div><h3>Sécurité totale</h3><p>Données hébergées et chiffrées, conformes RGPD.</p></div>
-      <div class="glass spot-card"><div class="icn">⚙️</div><h3>Entièrement personnalisable</h3><p>Nos agents IA répondent à <strong>vos</strong> besoins.</p></div>
+      <div class="glass spot-card"><div class="icn"><svg class="ic" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.24 11.4 11.4 0 0 0 3.6.58 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11.4 11.4 0 0 0 .58 3.6 1 1 0 0 1-.24 1z"/><path d="M15.6 3.4a7.4 7.4 0 0 1 5 5"/><path d="M14.9 7a3.8 3.8 0 0 1 2.1 2.1"/></svg></div><h3>Répond à tous les appels</h3><p>Jusqu'à 20 appels entrants sur la ligne, au même moment.</p></div>
+      <div class="glass spot-card"><div class="icn"><svg class="ic" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8.5A2.5 2.5 0 0 1 5.5 6H18a2 2 0 0 1 2 2v1"/><rect x="3" y="8.5" width="18" height="11" rx="2.5"/><circle cx="16.5" cy="14" r="1.3"/></svg></div><h3>2 à 3× moins cher <strong>qu'une secrétaire</strong></h3><p>Charges patronales comprises.</p></div>
+      <div class="glass spot-card"><div class="icn"><svg class="ic" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2.5"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="3" x2="8" y2="7"/><line x1="16" y1="3" x2="16" y2="7"/><path d="M9 15.2l2.2 2.2 4-4"/></svg></div><h3>Zéro rendez-vous manqué</h3><p>Un rappel 24h à l'avance est envoyé au client pour lui rappeler son rendez-vous.</p></div>
+      <div class="glass spot-card"><div class="icn"><svg class="ic" width="87" height="16" viewBox="0 0 87 16" fill="currentColor" stroke="none" aria-hidden="true"><path transform="translate(0.0,0)" d="M8 1.1l2.08 4.22 4.66.68-3.37 3.28.79 4.64L8 11.73 3.84 13.92l.79-4.64L1.26 6l4.66-.68z"/><path transform="translate(17.6,0)" d="M8 1.1l2.08 4.22 4.66.68-3.37 3.28.79 4.64L8 11.73 3.84 13.92l.79-4.64L1.26 6l4.66-.68z"/><path transform="translate(35.2,0)" d="M8 1.1l2.08 4.22 4.66.68-3.37 3.28.79 4.64L8 11.73 3.84 13.92l.79-4.64L1.26 6l4.66-.68z"/><path transform="translate(52.8,0)" d="M8 1.1l2.08 4.22 4.66.68-3.37 3.28.79 4.64L8 11.73 3.84 13.92l.79-4.64L1.26 6l4.66-.68z"/><path transform="translate(70.4,0)" d="M8 1.1l2.08 4.22 4.66.68-3.37 3.28.79 4.64L8 11.73 3.84 13.92l.79-4.64L1.26 6l4.66-.68z"/></svg></div><h3>Réputation Google</h3><p>Un client qui obtient une réponse est un client qui laisse un avis.</p></div>
+      <div class="glass spot-card"><div class="icn"><svg class="ic" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7.5 3v5.4c0 4.4-3 8.4-7.5 9.6-4.5-1.2-7.5-5.2-7.5-9.6V6z"/><path d="M9 12.2l2.1 2.1 4-4"/></svg></div><h3>Données encadrées</h3><p>Échanges chiffrés, hébergeur certifié SOC&nbsp;2, transferts encadrés par les clauses contractuelles types de l'UE. <a href="politique-confidentialite.html">Le détail ici.</a></p></div>
+      <div class="glass spot-card"><div class="icn"><svg class="ic" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/><circle cx="9" cy="7" r="2.1"/><circle cx="15" cy="12" r="2.1"/><circle cx="8" cy="17" r="2.1"/></svg></div><h3>Entièrement personnalisable</h3><p>Voix d'homme ou de femme, ton chaleureux ou strictement professionnel, horaires calés sur les vôtres. Et vous gardez la main sur votre agenda.</p></div>
     </div>
   </div>
 </section>
@@ -522,32 +830,34 @@ footer a:hover{color:var(--green-light);}
         </circle>
       </svg>
       <div class="cycle-center">
-        <span class="cycle-center-icon">💰</span>
+        <span class="cycle-center-icon"><svg class="ic" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M15.4 8.6a4.4 4.4 0 0 0-6.2 1.2 5.4 5.4 0 0 0 0 4.4 4.4 4.4 0 0 0 6.2 1.2"/><line x1="7.4" y1="10.9" x2="13" y2="10.9"/><line x1="7.4" y1="13.4" x2="13" y2="13.4"/></svg></span>
         <span class="cycle-center-label">CA en hausse</span>
       </div>
-      <div class="cycle-node" style="left:50%;top:8%;"><span class="n">1</span>Répond à tous les appels</div>
-      <div class="cycle-node" style="left:86.4%;top:29%;"><span class="n">2</span>Plus de nouveaux clients</div>
-      <div class="cycle-node" style="left:86.4%;top:71%;"><span class="n">3</span>Créneaux toujours remplis</div>
-      <div class="cycle-node" style="left:50%;top:92%;"><span class="n">4</span>Plus d'avis Google</div>
-      <div class="cycle-node" style="left:13.6%;top:71%;"><span class="n">5</span>Meilleure visibilité locale</div>
-      <div class="cycle-node" style="left:13.6%;top:29%;"><span class="n">6</span>Plus d'appels entrants</div>
+      <div class="cycle-node cn1"><span class="n">1</span>Répond à tous les appels</div>
+      <div class="cycle-node cn2"><span class="n">2</span>Plus de nouveaux clients</div>
+      <div class="cycle-node cn3"><span class="n">3</span>Créneaux toujours remplis</div>
+      <div class="cycle-node cn4"><span class="n">4</span>Plus d'avis Google</div>
+      <div class="cycle-node cn5"><span class="n">5</span>Meilleure visibilité locale</div>
+      <div class="cycle-node cn6"><span class="n">6</span>Plus d'appels entrants</div>
     </div>
   </div>
 </section>
 
-<!-- TESTIMONIALS -->
-<section id="testimonials">
-  <div class="bg-label" data-speed="0.16">AVIS</div>
+<!-- PARRAINAGE -->
+<section id="parrainage">
+  <div class="bg-label" data-speed="0.16">04</div>
   <div class="container">
-    <div class="eyebrow sd" data-sd="up">Témoignages</div>
-    <h2 class="sd" data-sd="up">Ils ont fait confiance à Vocaliz</h2>
-    <p class="section-sub sd" data-sd="up">&nbsp;</p>
-    <div class="carousel">
-      <div class="carousel-track" id="carouselTrack">
-        <div class="glass t-card"><div class="stars">★★★★★</div><p>"Depuis Vocaliz, je ne rate plus aucun appel même en pleine réparation sous un capot. Les RDV se prennent tout seuls."</p><div class="t-name">Thomas M.</div><div class="t-role mono">Garagiste — Lyon</div></div>
-        <div class="glass t-card"><div class="stars">★★★★★</div><p>"L'agent parle exactement comme moi. Mes clients ne se rendent compte de rien, et mon planning est enfin plein."</p><div class="t-name">Karim B.</div><div class="t-role mono">Plombier — Marseille</div></div>
-        <div class="glass t-card"><div class="stars">★★★★★</div><p>"Installation rapide, support réactif. Je récupère des rendez-vous que j'aurais perdus le soir ou le week-end."</p><div class="t-name">Sophie L.</div><div class="t-role mono">Kinésithérapeute — Bordeaux</div></div>
-      </div>
+    <div class="eyebrow sd" data-sd="up">Parrainage</div>
+    <h2 class="sd" data-sd="up">300&nbsp;€ pour chaque professionnel que vous nous présentez</h2>
+    <p class="section-sub sd" data-sd="up">Vous connaissez un artisan, une entreprise, un garage qui laisse sonner dans le vide&nbsp;? Présentez-le-nous.</p>
+    <div class="spotlight-grid">
+      <div class="glass spot-card"><div class="icn"><svg class="ic" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10" cy="8" r="3.6"/><path d="M3.5 20a6.5 6.5 0 0 1 13 0"/><line x1="19" y1="7" x2="19" y2="13"/><line x1="16" y1="10" x2="22" y2="10"/></svg></div><h3>Vous le présentez</h3><p>Il remplit la demande de devis en indiquant votre nom et votre téléphone. C'est tout ce qu'on vous demande.</p></div>
+      <div class="glass spot-card"><div class="icn"><svg class="ic" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="5.5" width="19" height="13" rx="2.5"/><line x1="2.5" y1="10" x2="21.5" y2="10"/><path d="M9 14.8l2 2 3.6-3.6"/></svg></div><h3>Il signe et paie</h3><p>La prime est due dès que l'entreprise a signé et réglé sa première facture mensuelle.</p></div>
+      <div class="glass spot-card"><div class="icn"><svg class="ic" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="6.5" width="19" height="11" rx="2"/><circle cx="12" cy="12" r="2.6"/><line x1="6" y1="12" x2="6.01" y2="12"/><line x1="18" y1="12" x2="18.01" y2="12"/></svg></div><h3>Vous touchez 300 €</h3><p>Par virement. Et si vous êtes déjà client Vocaliz, ce sont 300 € de remise sur vos propres factures.</p></div>
+    </div>
+    <p class="section-sub center sd" data-sd="up" style="margin-top:24px;">Jusqu'à 7 parrainages par année civile. <a href="parrainage.html">Lire le règlement complet</a>.</p>
+    <div class="center sd" data-sd="up" style="margin-top:18px;">
+      <button class="btn btn-primary magnetic" data-open-modal>Parrainer une entreprise →</button>
     </div>
   </div>
 </section>
@@ -609,8 +919,18 @@ footer a:hover{color:var(--green-light);}
 
 <footer>
   <div class="foot-title">VOCALIZ — Agent Vocal IA pour les Professionnels</div>
-  <div><a href="mailto:justin@vocaliz-ia.com">justin@vocaliz-ia.com</a> · <a href="https://vocaliz-ia.com">vocaliz-ia.com</a></div>
-  <div style="margin-top:8px;">© 2026 Vocaliz — <a href="#">Mentions légales</a></div>
+  <div><a href="mailto:justin@vocaliz-ia.com">justin@vocaliz-ia.com</a> · <a href="tel:+33423340658">04&nbsp;23&nbsp;34&nbsp;06&nbsp;58</a></div>
+  <a class="foot-person" href="https://www.linkedin.com/in/justin-boitte-71a150418/" target="_blank" rel="noopener me">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05a3.74 3.74 0 0 1 3.37-1.85c3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zM7.12 20.45H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"/></svg>
+    Justin Boitte — fondateur de Vocaliz
+  </a>
+  <div style="margin-top:8px;">
+    © <span id="footYear">2026</span> Vocaliz —
+    <a href="mentions-legales.html">Mentions légales</a> ·
+    <a href="politique-confidentialite.html">Politique de confidentialité</a> ·
+    <a href="cgv.html">CGV</a> ·
+    <a href="parrainage.html">Parrainage</a>
+  </div>
 </footer>
 
 <!-- QUOTE MODAL -->
@@ -648,23 +968,47 @@ footer a:hover{color:var(--green-light);}
         </div>
         <div class="parrain-fields" id="parrainFields">
           <div class="parrain-inner">
-            <div class="form-field"><label>Prénom du parrain</label><input type="text" name="parrain_prenom"></div>
+            <p class="form-legal" style="margin:0 0 10px;">En renseignant ces coordonnées, vous confirmez avoir l'accord de votre parrain.</p>
+          <div class="form-field"><label>Prénom du parrain</label><input type="text" name="parrain_prenom"></div>
             <div class="form-row">
               <div class="form-field"><label>Nom du parrain</label><input type="text" name="parrain_nom"></div>
               <div class="form-field"><label>Téléphone du parrain</label><input type="tel" name="parrain_telephone"></div>
             </div>
+            <div class="form-field">
+              <label>Le parrain est-il déjà abonné à Vocaliz&nbsp;?</label>
+              <select name="parrain_client">
+                <option value="Oui" selected>Oui, il est déjà client</option>
+                <option value="Non">Non</option>
+                <option value="Je ne sais pas">Je ne sais pas</option>
+              </select>
+            </div>
           </div>
         </div>
-        <div class="form-field"><label>Message (optionnel)</label><textarea name="message" rows="3"></textarea></div>
-        <input type="hidden" name="_subject" value="🔔 DEMANDE DE DEVIS — Vocaliz">
+        <div class="form-field"><label>Message (optionnel)</label><textarea name="message" rows="2"></textarea></div>
+        <input type="hidden" name="jeton" value="ItJ1GN0HTn2YHULxtI5LlOICswUrjl5B">
+        <!-- Piege a robots : sorti de l'ecran plutot que masque en display:none,
+             que beaucoup de robots savent detecter. Un humain ne peut ni le voir
+             ni l'atteindre au clavier ; un robot remplit tous les champs. -->
+        <div class="hp-field" aria-hidden="true">
+          <label for="site_web">Ne pas remplir</label>
+          <input type="text" id="site_web" name="site_web" tabindex="-1" autocomplete="off">
+        </div>
+        <p class="form-legal">Les informations recueillies servent uniquement à traiter votre demande de devis et à vous recontacter&nbsp;; si vous ne devenez pas client, elles sont supprimées au bout d'un&nbsp;an sans contact. Vous disposez d'un droit d'accès, de rectification et de suppression — <a href="politique-confidentialite.html" target="_blank" rel="noopener">en savoir plus</a>.</p>
         <button type="submit" class="submit-btn">Envoyer ma demande</button>
       </form>
     </div>
-    <div class="form-success" id="formSuccess">✅ Demande envoyée ! Je vous recontacte sous 24h.</div>
+    <div class="form-success" id="formSuccess">
+      <svg class="success-mark" viewBox="0 0 80 80" aria-hidden="true">
+        <circle cx="40" cy="40" r="35"/>
+        <path d="M25 41.5 L35.5 52 L56 31"/>
+      </svg>
+      <h3>Demande transmise</h3>
+      <p class="succ-sub">Je vous rappelle sous 24&nbsp;h au numéro que vous venez d'indiquer.</p>
+      <div class="success-stamp">Reçue à <span id="successStamp">--:--</span></div>
+    </div>
   </div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -672,35 +1016,24 @@ const isMobile = window.matchMedia('(max-width:900px)').matches;
 if(isMobile){ document.body.classList.add('no-custom-cursor'); }
 
 /* ===== LOADER ===== */
-const loaderText = document.querySelector('#loaderSvg text');
-const loaderWave = document.getElementById('loaderWave');
-const loaderWavePath = document.getElementById('loaderWavePath');
-(function buildWavePath(){
-  let d = 'M 0 18 ';
-  for(let x=0;x<=160;x+=4){ d += `L ${x} ${18+Math.sin(x*0.15)*10} `; }
-  loaderWavePath.setAttribute('d', d);
-})();
-window.addEventListener('load', () => {
-  try{
-    const len = loaderText.getComputedTextLength();
-    loaderText.style.strokeDasharray = len;
-    loaderText.style.strokeDashoffset = len;
-    loaderText.style.transition = 'stroke-dashoffset 1.1s cubic-bezier(.16,1,.3,1), fill 0.6s ease .9s';
-    requestAnimationFrame(()=>{
-      loaderText.style.strokeDashoffset = 0;
-      setTimeout(()=>{ loaderText.style.fill = '#52b788'; loaderWave.classList.add('show'); }, 500);
-    });
-  }catch(e){}
-  setTimeout(()=>{
-    document.getElementById('loader').classList.add('hide');
-    document.body.classList.remove('loading');
-    startHeroTitle();
-  }, 1600);
-});
+/* Le minuteur du voile vit dans le petit script place juste apres le loader
+   dans le HTML. Ici on se contente de lui fournir l'animation du titre, et de
+   la declencher tout de suite si le voile s'est deja ouvert sans nous. */
+let heroTitleStarted = false;
+window.__startHeroTitle = function(){
+  if(heroTitleStarted) return; heroTitleStarted = true;
+  startHeroTitle();
+};
+/* L'animation du voile est desormais entierement en CSS : elle demarre des
+   l'affichage du HTML, sans attendre le moindre script.
+   L'appel est repousse d'un tour de boucle : startHeroTitle() declenche
+   recalcOffsets(), qui lit sdItems — declare plus bas dans ce meme script.
+   Un appel synchrone ici tomberait dans la zone morte temporelle du const. */
+setTimeout(window.__startHeroTitle, 0);
 
 function startHeroTitle(){
   const el = document.getElementById('heroTitle');
-  const text = "Votre téléphone répond pour vous — 24h/24, 7j/7";
+  const text = "Votre téléphone répond pour vous 24h/24, 7j/7";
   const words = text.split(' ');
   el.innerHTML = words.map((w,i)=>{
     const isAccent = w.includes('24h/24') || w.includes('7j/7');
@@ -735,133 +1068,6 @@ if(!isMobile){
   });
 }
 
-/* ===== FULL-PAGE SCROLL-SCRUBBED 3D FLYTHROUGH (Three.js) with 2D fallback =====
-   Camera flies forward through a chain of glowing node-clusters as the user scrolls
-   the whole page (like a drone flying deeper into a space), mouse adds a subtle look-around. */
-const heroSection = document.getElementById('hero');
-const particleCanvas = document.getElementById('particleCanvas');
-let use3D = (typeof THREE !== 'undefined');
-window.__scrollP = 0;
-
-if(use3D){
-  try{
-    const renderer = new THREE.WebGLRenderer({canvas:particleCanvas, alpha:true, antialias:false, powerPreference:'high-performance'});
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio||1, isMobile?1.25:1.5));
-    const scene = new THREE.Scene();
-    const CLUSTERS = isMobile ? 4 : 5;
-    const SPACING = 24;
-    scene.fog = new THREE.Fog(0x0a0a0a, 8, isMobile?34:44);
-    const camera = new THREE.PerspectiveCamera(60, window.innerWidth/window.innerHeight, 0.1, 300);
-
-    const NODES_PER = isMobile ? 18 : 28;
-    const positions = [];
-    const linePositions = [];
-    for(let c=0;c<CLUSTERS;c++){
-      const cx = Math.sin(c*0.8)*7;
-      const cy = Math.cos(c*0.6)*3.2;
-      const cz = -c*SPACING;
-      const clusterNodes = [];
-      for(let i=0;i<NODES_PER;i++){
-        const r = 4+Math.random()*7.5;
-        const theta = Math.random()*Math.PI*2;
-        const phi = Math.acos((Math.random()*2)-1);
-        const x = cx + r*Math.sin(phi)*Math.cos(theta);
-        const y = cy + r*Math.sin(phi)*Math.sin(theta);
-        const z = cz + r*Math.cos(phi)*0.7;
-        positions.push(x,y,z);
-        clusterNodes.push(new THREE.Vector3(x,y,z));
-      }
-      const maxDist = 4.8;
-      for(let i=0;i<clusterNodes.length;i++){
-        for(let j=i+1;j<clusterNodes.length;j++){
-          if(clusterNodes[i].distanceTo(clusterNodes[j]) < maxDist){
-            const a=clusterNodes[i], b=clusterNodes[j];
-            linePositions.push(a.x,a.y,a.z, b.x,b.y,b.z);
-          }
-        }
-      }
-    }
-
-    const geo = new THREE.BufferGeometry();
-    geo.setAttribute('position', new THREE.Float32BufferAttribute(positions,3));
-    const mat = new THREE.PointsMaterial({color:0x6fd9a8, size:0.42, sizeAttenuation:true, transparent:true, opacity:0.95, blending:THREE.AdditiveBlending, depthWrite:false});
-    scene.add(new THREE.Points(geo, mat));
-
-    const lineGeo = new THREE.BufferGeometry();
-    lineGeo.setAttribute('position', new THREE.Float32BufferAttribute(linePositions,3));
-    const lineMat = new THREE.LineBasicMaterial({color:0x2d6a4f, transparent:true, opacity:0.35});
-    scene.add(new THREE.LineSegments(lineGeo, lineMat));
-
-    let targetX=0, targetY=0, curX=0, curY=0;
-    window.addEventListener('mousemove', e=>{
-      targetX = (e.clientX/window.innerWidth - 0.5)*2;
-      targetY = (e.clientY/window.innerHeight - 0.5)*2;
-    });
-
-    function resize3D(){
-      renderer.setSize(window.innerWidth, window.innerHeight, false);
-      camera.aspect = window.innerWidth/window.innerHeight;
-      camera.updateProjectionMatrix();
-    }
-    resize3D();
-    window.addEventListener('resize', resize3D);
-
-    const maxDepth = SPACING*(CLUSTERS-1);
-    camera.position.z = 8;
-    function animate3D(){
-      curX += (targetX-curX)*0.04;
-      curY += (targetY-curY)*0.04;
-      const sp = window.__scrollP || 0;
-      const targetZ = 8 - sp*(maxDepth+16);
-      camera.position.z += (targetZ - camera.position.z)*0.08;
-      const pathX = Math.sin(-camera.position.z*0.033)*4;
-      const pathY = Math.cos(-camera.position.z*0.025)*2;
-      camera.position.x += (pathX + curX*1.5 - camera.position.x)*0.06;
-      camera.position.y += (pathY + curY - camera.position.y)*0.06;
-      camera.lookAt(camera.position.x*0.5, camera.position.y*0.5, camera.position.z-20);
-      renderer.render(scene, camera);
-      requestAnimationFrame(animate3D);
-    }
-    animate3D();
-  }catch(e){ use3D = false; }
-}
-
-if(!use3D){
-  /* 2D canvas fallback: full-viewport particle network */
-  const ctx = particleCanvas.getContext('2d');
-  function resizeParticleCanvas(){ particleCanvas.width = window.innerWidth; particleCanvas.height = window.innerHeight; }
-  resizeParticleCanvas();
-  window.addEventListener('resize', resizeParticleCanvas);
-  const particleCount = isMobile ? 35 : 90;
-  let particles = [];
-  function initParticles(){
-    particles = [];
-    for(let i=0;i<particleCount;i++){
-      particles.push({x:Math.random()*particleCanvas.width, y:Math.random()*particleCanvas.height, vx:(Math.random()-0.5)*0.4, vy:(Math.random()-0.5)*0.4});
-    }
-  }
-  initParticles();
-  window.addEventListener('resize', initParticles);
-  let mouseP = {x:-9999,y:-9999};
-  window.addEventListener('mousemove', e=>{ mouseP.x=e.clientX; mouseP.y=e.clientY; });
-  function drawParticles(){
-    ctx.clearRect(0,0,particleCanvas.width,particleCanvas.height);
-    for(let p of particles){
-      const dx=p.x-mouseP.x, dy=p.y-mouseP.y, dist=Math.sqrt(dx*dx+dy*dy);
-      if(dist<110){ const f=(110-dist)/110; p.x+=(dx/dist)*f*1.6; p.y+=(dy/dist)*f*1.6; }
-      p.x+=p.vx; p.y+=p.vy;
-      if(p.x<0||p.x>particleCanvas.width) p.vx*=-1;
-      if(p.y<0||p.y>particleCanvas.height) p.vy*=-1;
-      ctx.beginPath(); ctx.arc(p.x,p.y,1.8,0,Math.PI*2); ctx.fillStyle='rgba(82,183,136,.8)'; ctx.fill();
-    }
-    for(let i=0;i<particles.length;i++) for(let j=i+1;j<particles.length;j++){
-      const dx=particles[i].x-particles[j].x, dy=particles[i].y-particles[j].y, dist=Math.sqrt(dx*dx+dy*dy);
-      if(dist<130){ ctx.beginPath(); ctx.moveTo(particles[i].x,particles[i].y); ctx.lineTo(particles[j].x,particles[j].y); ctx.strokeStyle=`rgba(82,183,136,${(1-dist/130)*0.25})`; ctx.lineWidth=1; ctx.stroke(); }
-    }
-    requestAnimationFrame(drawParticles);
-  }
-  drawParticles();
-}
 
 /* ===== crisp canvas helper (DPR) ===== */
 function crispCtx(canvas){
@@ -875,6 +1081,9 @@ function crispCtx(canvas){
 }
 
 /* ===== HERO IA WAVE (paused when hero is off-screen) ===== */
+/* heroSection etait declare dans le bloc du decor anime, supprime le 10/09/2026.
+   Il reste utilise ici et par la boucle de scroll : on le redeclare donc ici. */
+const heroSection = document.getElementById('hero');
 const waveCanvas = document.getElementById('waveCanvas');
 let waveC = crispCtx(waveCanvas);
 window.addEventListener('resize', ()=> waveC = crispCtx(waveCanvas));
@@ -891,7 +1100,7 @@ function drawIAWave(){
       const y = mid + Math.sin(x*0.04+t0)*10*Math.sin(t0*0.6) + Math.sin(x*0.09+t0*1.4)*6;
       if(x===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
     }
-    ctx.strokeStyle='#52b788'; ctx.lineWidth=2; ctx.shadowColor='#52b788'; ctx.shadowBlur=10; ctx.stroke();
+    ctx.strokeStyle='#2d6a4f'; ctx.lineWidth=2; ctx.shadowBlur=0; ctx.stroke();
   }
   requestAnimationFrame(drawIAWave);
 }
@@ -979,7 +1188,10 @@ function masterLoop(){
     const cy = rectTop + s.h/2;
     const visible = Math.max(0, 1-Math.abs(cy-vh/2)/(vh/2));
     s.el.style.transform = `scale(${(0.85+visible*0.15).toFixed(3)}) translateY(${((1-visible)*40).toFixed(1)}px)`;
-    s.el.style.opacity = Math.max(0.15, visible).toFixed(3);
+    // plancher a 0.62 : en dessous, le texte des cartes devenait illisible
+    // des qu'elles s'eloignaient du centre de l'ecran (surtout sur mobile,
+    // ou les 4 cartes sont empilees et une seule pouvait etre lue a la fois).
+    s.el.style.opacity = Math.max(0.55, visible).toFixed(3);
   });
 
   bgLabelsList.forEach(s=>{
@@ -1054,85 +1266,6 @@ document.querySelectorAll('.tilt-card, .sol-card, .spot-card').forEach(card=>{
   });
 });
 
-/* ===== DEMO AUDIO (real recording, native <audio> playback) ===== */
-const playBtn = document.getElementById('playBtn');
-const rings = document.querySelectorAll('.play-ring');
-const demoCanvas = document.getElementById('demoWaveCanvas');
-let demoC = crispCtx(demoCanvas);
-window.addEventListener('resize', ()=> demoC = crispCtx(demoCanvas));
-const demoCaption = document.getElementById('demoCaption');
-const demoAudio = document.getElementById('demoAudio');
-let playing=false;
-
-function fmtTime(s){
-  if(!isFinite(s)||isNaN(s)) s=0;
-  const m = Math.floor(s/60), sec = Math.floor(s%60);
-  return m.toString().padStart(2,'0')+':'+sec.toString().padStart(2,'0');
-}
-function drawDemoWave(amp){
-  const {ctx,w,h} = demoC;
-  ctx.clearRect(0,0,w,h);
-  const mid=h/2;
-  ctx.beginPath();
-  for(let x=0;x<=w;x+=3){
-    const n = Math.sin(x*0.05 + performance.now()*0.006)*amp*8 + Math.sin(x*0.12 + performance.now()*0.01)*amp*4;
-    const y = mid+n;
-    if(x===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
-  }
-  ctx.strokeStyle='#52b788'; ctx.lineWidth=2; ctx.shadowColor='#52b788'; ctx.shadowBlur=6+amp*14; ctx.stroke();
-}
-function demoLoop(){
-  if(!playing){ drawDemoWave(0.15); return; }
-  // driven by real playback position, no Web Audio graph involved — the <audio>
-  // element plays natively, so sound is never at the mercy of an AudioContext
-  const envelope = 0.4+Math.abs(Math.sin(demoAudio.currentTime*1.3))*0.9;
-  drawDemoWave(envelope);
-  demoCaption.textContent = fmtTime(demoAudio.currentTime)+' / '+fmtTime(demoAudio.duration)+' · Appel client réel';
-  requestAnimationFrame(demoLoop);
-}
-drawDemoWave(0.15);
-demoAudio.addEventListener('loadedmetadata', ()=>{
-  demoCaption.textContent = '00:00 / '+fmtTime(demoAudio.duration)+' · Appel client réel';
-});
-demoAudio.addEventListener('ended', ()=>{
-  playing=false;
-  playBtn.textContent='▶';
-  rings.forEach(r=>r.classList.remove('animate'));
-  demoCaption.textContent = '00:00 / '+fmtTime(demoAudio.duration)+' · Appel client réel';
-  drawDemoWave(0.15);
-});
-demoAudio.addEventListener('error', ()=>{
-  console.error('demo-call.mp3 failed to load — check that it sits next to vocaliz.html');
-  demoCaption.textContent = "Fichier audio introuvable (demo-call.mp3 doit être à côté du HTML)";
-});
-playBtn.addEventListener('click', async ()=>{
-  if(playing){
-    demoAudio.pause();
-    playing=false;
-    playBtn.textContent='▶';
-    rings.forEach(r=>r.classList.remove('animate'));
-    return;
-  }
-  try{ await demoAudio.play(); }catch(err){
-    console.error('demo audio play() failed:', err);
-    demoCaption.textContent = "Impossible de lire l'audio (voir console)";
-    return;
-  }
-  playing=true;
-  playBtn.textContent='❚❚';
-  rings.forEach(r=>r.classList.add('animate'));
-  demoLoop();
-});
-
-/* ===== SPOTLIGHT (BENEFITS) ===== */
-document.querySelectorAll('.spot-card').forEach(card=>{
-  card.addEventListener('mousemove', e=>{
-    const r = card.getBoundingClientRect();
-    card.style.setProperty('--mx', (e.clientX-r.left)+'px');
-    card.style.setProperty('--my', (e.clientY-r.top)+'px');
-  });
-});
-
 /* ===== TESTIMONIALS: highlight on hover only (no auto-rotation) ===== */
 
 /* ===== FAQ ACCORDION ===== */
@@ -1168,6 +1301,7 @@ document.querySelectorAll('[data-open-modal]').forEach(b=>b.addEventListener('cl
 }));
 document.querySelectorAll('[data-close-modal]').forEach(b=>b.addEventListener('click', ()=> overlay.classList.remove('show')));
 overlay.addEventListener('click', e=>{ if(e.target===overlay) overlay.classList.remove('show'); });
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') overlay.classList.remove('show'); });
 
 const radioOpts = document.querySelectorAll('.radio-opt');
 const parrainFields = document.getElementById('parrainFields');
@@ -1182,14 +1316,58 @@ radioOpts.forEach(opt=>{
   });
 });
 
+document.getElementById('footYear').textContent = new Date().getFullYear();
+
+/* ===== PERTE DE CONNEXION =====
+   Sans ca, un visiteur hors ligne voyait le formulaire echouer sans
+   comprendre pourquoi. On l'annonce, et on rappelle que le telephone marche. */
+const netbar = document.getElementById('netbar');
+function netDown(){
+  netbar.className = 'netbar show';
+  netbar.innerHTML = 'Connexion Internet perdue — vos informations ne peuvent pas être envoyées. Vous pouvez appeler le <a href="tel:+33423340658">04&nbsp;23&nbsp;34&nbsp;06&nbsp;58</a>.';
+}
+function netUp(){
+  if(!netbar.classList.contains('show')) return;
+  netbar.className = 'netbar show back';
+  netbar.textContent = 'Connexion rétablie.';
+  setTimeout(()=>{ netbar.className = 'netbar'; }, 3200);
+}
+window.addEventListener('offline', netDown);
+window.addEventListener('online', netUp);
+if(!navigator.onLine) netDown();
+
+/* Destination du formulaire : webhook Make, scenario "Site - Formulaire devis".
+   Bascule faite le 10/09/2026 ; l'ancien Formspree plafonnait a 50 envois/mois.
+   Une seule ligne a changer pour y revenir : les deux lisent un FormData. */
+const FORM_ENDPOINT = 'https://hook.eu1.make.com/oj843ptqu08s6ior3jcbaoo5722beq1e';
+
 const quoteForm = document.getElementById('quoteForm');
 quoteForm.addEventListener('submit', async (e)=>{
   e.preventDefault();
   const submitBtn = quoteForm.querySelector('.submit-btn');
+  const originalLabel = submitBtn.textContent;
+  if(submitBtn.disabled) return;          // pas de double envoi
+  // Champ piege rempli = robot. On affiche le succes sans rien envoyer,
+  // pour ne pas lui indiquer qu'il a ete repere.
+  if(quoteForm.site_web.value){
+    document.getElementById('formView').style.display='none';
+    document.getElementById('formSuccess').classList.add('show');
+    return;
+  }
+  submitBtn.disabled = true;
   submitBtn.textContent = 'Envoi en cours...';
-  const data = new FormData(quoteForm);
   try{
-    await fetch('https://formspree.io/f/mrewwbal', { method:'POST', body:data, headers:{ 'Accept':'application/json' } });
+    const res = await fetch(FORM_ENDPOINT, {
+      method:'POST',
+      body:new FormData(quoteForm),
+      headers:{ 'Accept':'application/json' }
+    });
+    // fetch ne leve pas d'exception sur un 4xx/5xx : sans ce test, un envoi
+    // refuse (quota Formspree atteint, formulaire desactive) affichait quand
+    // meme « Demande envoyee » et le contact etait perdu sans qu'on le sache.
+    if(!res.ok) throw new Error('HTTP ' + res.status);
+    document.getElementById('successStamp').textContent =
+      new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});
     document.getElementById('formView').style.display='none';
     document.getElementById('formSuccess').classList.add('show');
     quoteForm.reset();
@@ -1198,8 +1376,12 @@ quoteForm.addEventListener('submit', async (e)=>{
     radioOpts[0].classList.add('active');
     parrainageValue.value='Non';
   }catch(err){
-    submitBtn.textContent = 'Envoyer ma demande';
-    alert("Une erreur est survenue, réessayez ou écrivez-nous directement à justin@vocaliz-ia.com");
+    alert("L'envoi a échoué. Écrivez-moi directement à justin@vocaliz-ia.com ou appelez le 04 23 34 06 58.");
+  }finally{
+    // remis dans tous les cas : sinon le bouton restait sur « Envoi en
+    // cours... » a la reouverture de la fenetre apres un envoi reussi.
+    submitBtn.disabled = false;
+    submitBtn.textContent = originalLabel;
   }
 });
 

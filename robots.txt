@@ -1,0 +1,6 @@
+# Googlebot-Image doit pouvoir telecharger le favicon pour que le logo
+# s'affiche dans les resultats de recherche : ne jamais bloquer /favicon*.
+User-agent: *
+Allow: /
+
+Sitemap: https://vocaliz-ia.com/sitemap.xml
