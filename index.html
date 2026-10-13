@@ -543,6 +543,57 @@ footer{color:var(--l-txt-3);border-top-color:var(--l-border);}
 .ld-word{color:var(--l-txt);}
 .ld-word span{color:var(--l-green);}
 .ld-tag{color:var(--l-txt-3);}
+.hdr-actions{display:flex;align-items:center;gap:22px;}
+.hdr-link{font-size:14px;font-weight:600;color:var(--l-txt-2);text-decoration:none;white-space:nowrap;}
+.hdr-link:hover{color:var(--l-green);}
+@media (max-width:640px){.hdr-actions{gap:12px;}.hdr-link{font-size:12px;}}
+.hero-btns{display:flex;flex-wrap:wrap;gap:14px;align-items:center;}
+.hdr-link{border:1px solid var(--l-green);border-radius:100px;padding:9px 18px;color:var(--l-green);}
+.hdr-link:hover{background:var(--l-green);color:#fff;}
+#site-offer{padding:60px 0;}
+.site-band{text-align:center;padding:54px 28px;}
+.site-band .section-sub{margin:0 auto 32px;}
+.site-band h2{margin-bottom:14px;}
+@media (max-width:640px){.site-band{padding:40px 20px;}.hdr-link{padding:7px 12px;}}
+@media (max-width:480px){header .logo{display:none;}.hdr-actions{gap:8px;}header .btn-ghost{white-space:nowrap;padding:9px 14px !important;font-size:12px !important;}}
+/* photo du haut de page : texte clair sur voile sombre pour rester lisible */
+.hero-photo{position:absolute;inset:0;z-index:0;overflow:hidden;}
+.hero-photo img{width:100%;height:100%;object-fit:cover;object-position:50% 60%;display:block;}
+.hero-photo::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,18,12,.80) 0%,rgba(6,18,12,.66) 45%,rgba(6,18,12,.88) 100%);}
+#hero .hero-title{color:#fff;text-shadow:0 2px 24px rgba(0,0,0,.45);}
+#hero .hero-title .accent{background:linear-gradient(90deg,#8be0b8,#52b788);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:none;filter:drop-shadow(0 2px 14px rgba(0,0,0,.4));}
+#hero .hero-sub{color:rgba(255,255,255,.9);text-shadow:0 1px 14px rgba(0,0,0,.5);}
+#hero .eyebrow{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.35);color:#fff;}
+#hero .btn-ghost{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.6);color:#fff;backdrop-filter:blur(6px);}
+#hero .btn-ghost:hover{background:rgba(255,255,255,.22);border-color:#fff;}
+#hero .scroll-cue,#hero .scroll-cue span{color:rgba(255,255,255,.8);}
+#hero .scroll-cue .scroll-line{background:linear-gradient(to bottom,#fff,transparent);}
+/* numero de la demo : centre, et qui ne depasse plus sur telephone */
+.call-number{display:flex;width:fit-content;max-width:100%;justify-content:center;margin-left:auto;margin-right:auto;}
+@media (max-width:640px){.demo-box{padding:36px 18px;}.call-number{padding:14px 20px;font-size:clamp(20px,6.4vw,26px);gap:10px;letter-spacing:0;}}
+/* simulateur sur telephone : lignes compactes, deux resultats cote a cote */
+@media (max-width:640px){
+  #simulator{padding:64px 0;}
+  #simulator .sim-box{padding:26px 16px;}
+  #simulator h2{font-size:clamp(22px,6.4vw,27px);line-height:1.2;margin-bottom:10px;}
+  #simulator .section-sub{font-size:14px;margin-bottom:18px !important;}
+  #simulator .sim-formula{display:flex;flex-direction:column;gap:10px;margin-bottom:18px;}
+  #simulator .sim-op{display:none;}
+  #simulator .sim-field{display:flex;align-items:center;justify-content:space-between;gap:12px;min-width:0;padding:10px 12px;border-radius:14px;background:rgba(255,255,255,.55);border:1px solid rgba(45,106,79,.18);}
+  #simulator .sim-field label{margin:0;min-height:0;font-size:14px;line-height:1.25;flex:1;}
+  #simulator .sim-field input{width:96px;flex:none;padding:9px 12px;font-size:18px;border-radius:10px;text-align:right;}
+  #simulator .sim-input-wrap{flex:none;gap:6px;}
+  #simulator .sim-input-wrap input{width:84px;flex:none;}
+  #simulator .sim-unit{font-size:16px;}
+  #simulator .sim-box{display:grid;grid-template-columns:1fr 1fr;column-gap:10px;}
+  #simulator .sim-box > *{grid-column:1 / -1;}
+  #simulator .sim-box > .eyebrow{justify-self:start;}
+  #simulator .sim-box > .sim-result{grid-column:auto;display:flex;flex-direction:column;align-items:flex-start;gap:2px;margin:0;padding:16px 14px;border-radius:16px;min-width:0;}
+  #simulator .sim-result .sim-eq{display:none;}
+  #simulator .sim-result .amount{font-size:clamp(22px,7vw,28px);line-height:1.1;white-space:nowrap;}
+  #simulator .sim-result .label{font-size:13px;font-weight:600;line-height:1.25;}
+  #simulator .sim-cta{display:flex;width:100%;justify-content:center;text-align:center;margin-top:16px;padding:14px 18px;font-size:14px;line-height:1.3;}
+}
 header .btn-ghost{background:var(--l-green);border-color:var(--l-green);color:#fff;}
 .eyebrow{color:#1b4332;background:rgba(45,106,79,.18);border-color:rgba(45,106,79,.38);backdrop-filter:none;}
 .call-hint{color:var(--l-txt-2);}
@@ -660,13 +711,17 @@ footer{color:var(--l-txt-2);}
     <svg class="logo-mark" viewBox="0 0 512 512" aria-hidden="true"><defs><linearGradient id="hdGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6fd9a8"/><stop offset="1" stop-color="#2d6a4f"/></linearGradient></defs><rect width="512" height="512" rx="112" fill="url(#hdGrad)"/><g fill="#06120c"><rect x="70" y="204" width="52" height="104" rx="26"/><rect x="150" y="152" width="52" height="208" rx="26"/><rect x="230" y="100" width="52" height="312" rx="26"/><rect x="310" y="152" width="52" height="208" rx="26"/><rect x="390" y="204" width="52" height="104" rx="26"/></g></svg>
     <div class="logo" data-text="VOCALIZ">VOCALIZ</div>
   </div>
-  <button class="btn btn-ghost magnetic" data-open-modal style="padding:11px 22px;font-size:13px;">Demander un devis</button>
+  <div class="hdr-actions">
+    <a class="hdr-link" href="sites-web.html">Création de site</a>
+    <button class="btn btn-ghost magnetic" data-open-modal style="padding:11px 22px;font-size:13px;">Demander un devis</button>
+  </div>
 </header>
 
 <main>
 
 <!-- HERO -->
 <section id="hero">
+  <div class="hero-photo" aria-hidden="true"><img src="hero-agents.jpg" alt="" fetchpriority="high"></div>
   <div class="container hero-grid">
     <div id="heroCol">
       <div class="eyebrow">Agent Vocal IA — Répondeur Intelligent</div>
@@ -675,7 +730,10 @@ footer{color:var(--l-txt-2);}
            startHeroTitle() le remplace ensuite par sa version animee. -->
       <h1 class="hero-title" id="heroTitle">Votre téléphone répond pour vous <span class="accent">24h/24,</span> <span class="accent">7j/7</span></h1>
       <p class="hero-sub">Vocaliz installe un agent vocal IA sur votre numéro professionnel. Il répond, prend les rendez-vous et gère vos appels — même quand vous êtes occupé.</p>
-      <button class="btn btn-primary magnetic" data-open-modal>Demander votre devis →</button>
+      <div class="hero-btns">
+        <button class="btn btn-primary magnetic" data-open-modal>Demander votre devis →</button>
+        <a class="btn btn-ghost magnetic" href="sites-web.html">Créer mon site →</a>
+      </div>
     </div>
     <div class="hero-visual" id="heroVisual">
       <div class="ia-screen glass">
@@ -691,6 +749,18 @@ footer{color:var(--l-txt-2);}
     </div>
   </div>
   <div class="scroll-cue"><span>Scroll</span><div class="scroll-line"></div></div>
+</section>
+
+<!-- CREATION DE SITE -->
+<section id="site-offer">
+  <div class="container">
+    <div class="site-band glass sd" data-sd="scale">
+      <div class="eyebrow">Sites internet pour artisans</div>
+      <h2>Besoin d'un site internet&nbsp;?</h2>
+      <p class="section-sub">Votre site, votre fiche Google, vos contenus et votre publicité, avec un suivi chaque mois. On commence par un audit de votre présence en ligne, avant tout devis.</p>
+      <a class="btn btn-primary magnetic" href="sites-web.html">Créer mon site →</a>
+    </div>
+  </div>
 </section>
 
 <!-- SIMULATOR -->
@@ -929,7 +999,8 @@ footer{color:var(--l-txt-2);}
     <a href="mentions-legales.html">Mentions légales</a> ·
     <a href="politique-confidentialite.html">Politique de confidentialité</a> ·
     <a href="cgv.html">CGV</a> ·
-    <a href="parrainage.html">Parrainage</a>
+    <a href="parrainage.html">Parrainage</a> ·
+    <a href="sites-web.html">Création de site</a>
   </div>
 </footer>
 
