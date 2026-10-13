@@ -21,13 +21,7 @@ html{scroll-behavior:smooth;}
 .mnav-agents{display:flex;align-items:center;gap:8px;margin-bottom:6px;padding:12px 16px;border-radius:14px;background:#2d6a4f;color:#fff;font-size:16px;font-weight:600;}
 .mnav-agents:hover{background:#245640;}
 
-/* photos d'artisans : visibles quand le telephone Google (grand ecran) est masque */
-.artisans-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:34px;max-width:34rem;}
-.artisans-grid figure{position:relative;margin:0;border-radius:18px;overflow:hidden;aspect-ratio:1/1;background:#14201a;box-shadow:0 10px 30px rgba(0,0,0,.35);}
-.artisans-grid img{width:100%;height:100%;object-fit:cover;display:block;}
-.artisans-grid figure::after{content:'';position:absolute;inset:auto 0 0 0;height:55%;background:linear-gradient(to top,rgba(0,0,0,.72),transparent);pointer-events:none;}
-.artisans-grid figcaption{position:absolute;left:12px;bottom:10px;z-index:1;color:#fff;font-size:13px;font-weight:600;letter-spacing:.01em;text-shadow:0 1px 8px rgba(0,0,0,.6);}
-@media (min-width:1024px){.artisans-grid{display:none;}}
+
 
 .gal-thumb{flex:1 1 0;min-width:0;width:0;height:3.5rem;border-radius:.5rem;object-fit:cover;display:block;}
 
